@@ -1,0 +1,32 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class UpdateDemo
+{
+    public static void main(String[] args) throws  Exception
+    {
+        String city1="pune";
+        String email1="abc@gmail.com";
+        //-------------load driver class-------
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        //-----------make JDBC connection--------
+
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","123456");
+
+        PreparedStatement ps=con.prepareStatement("update register set city=? where email=?");
+        ps.setString(1,city1);
+        ps.setString(2,email1);
+        int i=ps.executeUpdate();
+        if (i>0)
+        {
+            System.out.println(" Data Updated....");
+        }
+        else {
+            System.out.println("  Failed....");
+        }
+        con.close();
+    }
+}
